@@ -17,20 +17,19 @@ import {
 
 import { useParams } from "react-router-dom";
 
-import {
-  GoogleMap,
-  InfoWindow,
-  Polyline,
-  useLoadScript,
-  Marker,
-  LoadScript,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 
 import axios from "axios";
 import { useTheme } from "@emotion/react";
 
 import { LiveTracking, LiveView } from "../../components/map/liveLocation";
 const Single = () => {
+  const API_KEY_GMAPS = process.env.NEXT_GMAPS_APP_API_KEY;
+
+  // const { apiLoaded } = useLoadScript({
+  //   googleMapsApiKey: process.env.GMAPS_APP_API_KEY,
+  // });
+
   const { assetSerialNumber, assetName } = useParams();
 
   //map prt
@@ -108,12 +107,6 @@ const Single = () => {
     // console.log("marker: ", marker);
   };
 
-  const lineSymbol = {
-    path: "M 0,-1 0,1",
-    strokeOpacity: 1,
-    scale: 4,
-  };
-
   const center = {
     lat: 27.1753738514716,
     lng: 78.04209928206996,
@@ -122,11 +115,6 @@ const Single = () => {
   const mapContainerStyle = {
     width: "1000px",
     height: "400px",
-  };
-
-  const mapContainerRight = {
-    width: "700px",
-    height: "350px",
   };
 
   const clientID = deviceId;
@@ -150,7 +138,7 @@ const Single = () => {
                 <h1 className="itemTitle">{SingleAsset.assetName}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Asset Type:</span>
-                  <span className="itemValue">{SingleAsset.assetType} </span>
+                  <span className="itemValue">{SingleAsset.assetType}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Expected Delivery :</span>
