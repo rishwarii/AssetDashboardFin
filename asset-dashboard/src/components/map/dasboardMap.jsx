@@ -25,6 +25,8 @@ const MapsComponentDash = () => {
   const [Loading, setLoading] = useState(false);
   // const componentMounted = useRef(true); // (3) component is mounted
 
+  const API_KEY_GMAPS = process.env.NEXT_GMAPS_APP_API_KEY;
+
   useEffect(() => {
     async function getAllAssets() {
       try {
@@ -54,7 +56,7 @@ const MapsComponentDash = () => {
     //   <CircularColor color="secondary" />
     // ) : (
     <div className="mapDash">
-      <LoadScript googleMapsApiKey="AIzaSyCqnsYyCrtslXT09ZGHvzQPu6f2biBEFR4">
+      <LoadScript googleMapsApiKey={API_KEY_GMAPS}>
         <GoogleMap
           id="marker-example"
           mapContainerStyle={mapContainerStyle}
