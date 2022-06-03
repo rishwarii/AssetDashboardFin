@@ -3,6 +3,8 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+
 import { createTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -105,7 +107,7 @@ export default function MiniDrawer() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar sx={{ bgcolor: "#0a1929" }} position="fixed" open={open}>
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -126,9 +128,10 @@ export default function MiniDrawer() {
               className="avatar"
             />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Asset Management Dashboard
           </Typography>
+          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -136,7 +139,7 @@ export default function MiniDrawer() {
         open={open}
         PaperProps={{
           sx: {
-            backgroundColor: "#0b2745",
+            // backgroundColor: "#0b2745",
           },
         }}
       >
@@ -152,7 +155,7 @@ export default function MiniDrawer() {
         <Divider />
         <List>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+            <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -165,12 +168,15 @@ export default function MiniDrawer() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    color: "white",
+                    color: "inherit",
                   }}
                 >
                   <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary="Dasboard" />
+                <ListItemText
+                  primary="Dasboard"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </Link>
           </ListItem>
@@ -178,7 +184,7 @@ export default function MiniDrawer() {
           <ListItem disablePadding sx={{ display: "block" }}>
             <Link
               to="/assetList"
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "inherit", textDecoration: "none" }}
             >
               <ListItemButton
                 sx={{
@@ -192,12 +198,15 @@ export default function MiniDrawer() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    color: "white",
+                    color: "inherit",
                   }}
                 >
                   <InventoryIcon />
                 </ListItemIcon>
-                <ListItemText primary="Asset List" />
+                <ListItemText
+                  primary="Asset List"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </Link>
           </ListItem>

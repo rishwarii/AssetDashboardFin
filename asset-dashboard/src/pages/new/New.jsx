@@ -1,31 +1,33 @@
 import "./new.scss";
 import { useState } from "react";
-// import DateTimePicker from "@mui/x-date-pickers/DateTimePicker";
-// import { DateTimePicker } from "@mui/x-date-pickers";
-// import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { styled } from "@mui/material/styles";
+import { InputLabel } from "@material-ui/core";
+import "./New1.scss";
+import { Select } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import React from "react";
+
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+
 import AssetList from "../list/AssetList";
 import MiniDrawer from "../../components/sidebar/sidebar2coll2";
 import axios from "axios";
+
 import {
   Typography,
   Box,
-  Paper,
-  makeStyles,
   Grid,
   MenuItem,
   TextField,
   Button,
 } from "@material-ui/core";
 
-// const New = ({ inputs, title }) => {
-//   const [file, setFile] = useState("");
-
 const NewAsset = () => {
   const [newAsset, setnewAsset] = useState({
     assetName: "",
     assetSerialNumber: "",
-    assetType: "",
+    expectedDeliveryDateTime: null,
+    assetType: " ",
     deviceSerialNumber: "",
     endLocationLatitude: "",
     endLocationLongitude: "",
@@ -34,14 +36,15 @@ const NewAsset = () => {
   });
 
   const [status, setStatus] = useState();
+  // const [selectDateTime, setselectDateTime] = (useState < Date) | (null > null);
 
   function onTextFieldChange(e) {
     setnewAsset({
       ...newAsset,
-      [e.target.name]: e.target.value,
+      [e.target.name]: String(e.target.value),
     });
 
-    // console.log(newAsset);
+    console.log(newAsset);
   }
 
   async function onFormSubmit(e) {
@@ -69,166 +72,176 @@ const NewAsset = () => {
     <div className="home">
       <MiniDrawer />
       <div className="homeContainer">
-        <div className="top">
-          <h1>Add New Asset </h1>
-        </div>
-
-        <div className="right"></div>
-
-        <form>
-          <div className="left">
-            <Grid
-              container
-              rowSpacing={2}
-              columnSpacing={{ xs: 5, sm: 5, md: 5 }}
-            >
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="assetName"
-                    name="assetName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="assetName"
-                    label=" Asset Name"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="assetSerialNumber"
-                    name="assetSerialNumber"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="assetSerialNumber"
-                    label="Asset Serial Number"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="deviceSerialNumber"
-                    name="deviceSerialNumber"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="deviceSerialNumber"
-                    label="deviceSerialNumber"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="assetType"
-                    name="assetType"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="assetType"
-                    label=" Asset Type"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="endLocationLatitude"
-                    name="endLocationLatitude"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="endLocationLatitude"
-                    label="End Location Latitude"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="endLocationLongitude"
-                    name="endLocationLongitude"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="endLocationLongitude"
-                    label=" endLocationLongitude"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="startLocationLatitude"
-                    name="startLocationLatitude"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="startLocationLatitude"
-                    label=" startLocationLatitude"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="formInput">
-                  <TextField
-                    autoComplete="startLocationLongitude"
-                    name="startLocationLongitude"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="startLocationLongitude"
-                    label=" Asset startLocationLongitude"
-                    onChange={(e) => onTextFieldChange(e)}
-                  />
-                </div>
-              </Grid>
-            </Grid>
-          </div>
-          <Grid item xs={6}>
-            <div className="formInput">
-              {/* <KeyboardDateTimePicker
-                // renderInput={() => <TextField/>}
-                name="expectedDeliveryDateTime"
-                required
-                value={newAsset}
-                fullWidth
-                type="datetime-local"
-                defaultValue="2017-05-24T10:30"
-                sx={{ width: 250 }}
-                id="expectedDeliveryDateTime"
-                label=" expectedDeliveryDateTime"
-                onChange={(e) => onTextFieldChange(e)}   
-              /> */}
+        <div className="widgets">{/* <Widget type="order" /> */}</div>
+        <div className="listContainer">
+          <div>
+            <div className="listTitle">
+              <h1>Add New Asset </h1>
             </div>
-          </Grid>
-          <Box m={3}>
-            <Button
-              width="150px"
-              type="submit"
-              align="center"
-              variant="contained"
-              color="primary"
-              onClick={(e) => onFormSubmit(e)}
-            >
-              Add Asset
-            </Button>
-          </Box>
-        </form>
+          </div>
+
+          <form>
+            <div>
+              <Grid
+                spacing={3}
+                container
+                rowSpacing={10}
+                columnSpacing={{ xs: 5, sm: 5, md: 5 }}
+                marginRight={10}
+              >
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="assetName"
+                      name="assetName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="assetName"
+                      label=" Asset Name"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="assetSerialNumber"
+                      name="assetSerialNumber"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="assetSerialNumber"
+                      label="Asset Serial Number"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="deviceSerialNumber"
+                      name="deviceSerialNumber"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="deviceSerialNumber"
+                      label="deviceSerialNumber"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <Select
+                      name="Asset Type"
+                      label="Asset Type"
+                      required
+                      value={newAsset.assetType}
+                      fullWidth
+                      id="assetType"
+                      onChange={(e) => onTextFieldChange(e)}
+                    >
+                      <MenuItem value="">
+                        <em>None Selected </em>
+                      </MenuItem>
+                      <MenuItem value={"Delicate"}>Delicate</MenuItem>
+                      <MenuItem value={"Not Delcicate"}>Not Delicate</MenuItem>
+                    </Select>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DateTimePicker
+                        fullWidth
+                        name="Expected Date/Time"
+                        required
+                        outlined
+                        renderInput={(params) => <TextField {...params} />}
+                        label="Expected Delivery Date Time"
+                        value={newAsset.expectedDeliveryDateTime}
+                        onChange={(e) => onTextFieldChange(e)}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="endLocationLatitude"
+                      name="endLocationLatitude"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="endLocationLatitude"
+                      label="End Location Latitude"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="endLocationLongitude"
+                      name="endLocationLongitude"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="endLocationLongitude"
+                      label=" endLocationLongitude"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="startLocationLatitude"
+                      name="startLocationLatitude"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="startLocationLatitude"
+                      label=" startLocationLatitude"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="formInput">
+                    <TextField
+                      autoComplete="startLocationLongitude"
+                      name="startLocationLongitude"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="startLocationLongitude"
+                      label=" Asset startLocationLongitude"
+                      onChange={(e) => onTextFieldChange(e)}
+                    />
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
+
+            <Box m={3}>
+              <Button
+                width="150px"
+                type="submit"
+                align="center"
+                variant="contained"
+                color="primary"
+                onClick={(e) => onFormSubmit(e)}
+              >
+                Add Asset
+              </Button>
+            </Box>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
-
 export default NewAsset;
