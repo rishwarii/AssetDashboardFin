@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 import ButtonAppBar from "../../components/appBar/ButtonAppBar";
+import ClientList from "../../components/clientList/clientList";
 
 const useStyle = makeStyles((theme) => ({
   landingPage: {
@@ -42,15 +43,16 @@ const LandingPage = () => {
       <div className={classes.landingPage}>
         <CssBaseline></CssBaseline>
         <ButtonAppBar></ButtonAppBar>
-        <h1 className={classes.welcomeText}>
-          Welcome to <br />
-          <span className={classes.headings}>Asset Dashboard</span>
-        </h1>
       </div>
+      <h1 className={classes.welcomeText}>
+        Welcome to <br />
+        <span className={classes.headings}>Asset Dashboard</span>
+      </h1>
 
-      <h2 className={classes.clientList} sx={{}}>
+      {/* <h2 className={classes.clientList} sx={{}}>
         List of Clients :
-      </h2>
+      </h2> */}
+      <ClientList></ClientList>
     </div>
   );
 };
