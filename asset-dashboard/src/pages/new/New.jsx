@@ -1,26 +1,15 @@
 import "./new.scss";
 import { useState } from "react";
-import { InputLabel } from "@material-ui/core";
 import "./New1.scss";
 import { Select } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from "react";
-
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-
 import AssetList from "../list/AssetList";
 import MiniDrawer from "../../components/sidebar/sidebar2coll2";
 import axios from "axios";
-
-import {
-  Typography,
-  Box,
-  Grid,
-  MenuItem,
-  TextField,
-  Button,
-} from "@material-ui/core";
+import { Box, Grid, MenuItem, TextField, Button } from "@material-ui/core";
 
 const NewAsset = () => {
   const [newAsset, setnewAsset] = useState({
