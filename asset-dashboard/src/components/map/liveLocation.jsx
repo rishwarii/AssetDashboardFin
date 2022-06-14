@@ -2,14 +2,7 @@ import React, { useDebugValue } from "react";
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import {
-  Typography,
-  Box,
-  makeStyles,
-  Grid,
-  TextField,
-  Button,
-} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 import { useParams } from "react-router-dom";
 
@@ -25,11 +18,6 @@ import {
 const mapContainerStyle = {
   width: "1000px",
   height: "400px",
-};
-
-const mapContainerRight = {
-  width: "700px",
-  height: "350px",
 };
 
 const center = {
@@ -62,7 +50,7 @@ export const LiveTracking = (props) => {
       // TODO: add customize
       setisLoading(true);
       const response = await axios.get(
-        `https://ehkwpzkqme.execute-api.ap-south-1.amazonaws.com/prod/trackpoint?deviceSerialNumber=50bb3998601240ab96ecaff7a0bf562a`
+        `https://ehkwpzkqme.execute-api.ap-south-1.amazonaws.com/prod/trackpoint?deviceSerialNumber=${deviceserialNum}`
       );
 
       const LiveLocation = await response.data.path;
@@ -73,8 +61,8 @@ export const LiveTracking = (props) => {
           lng: parseFloat(LiveLocation.Longitude),
         },
       });
-      console.log("HELLO this updates ");
-      console.log(LiveLocation.Longitude);
+      // console.log("HELLO this updates ");
+      // console.log(LiveLocation.Longitude);
       setisLoading(false);
     } catch (error) {
       console.log("ERROR IN Liive LOCcation");
@@ -84,7 +72,7 @@ export const LiveTracking = (props) => {
   useEffect(() => {
     const interval = setInterval(() => {
       getLiveLocation();
-    }, 1000000);
+    }, 100000);
 
     return () => clearInterval(interval);
   }, []);

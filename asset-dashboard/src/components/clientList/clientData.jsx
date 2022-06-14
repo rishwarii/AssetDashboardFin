@@ -1,13 +1,27 @@
-export const clientData = [
-  {
-    id: "1",
-    name: "Client 1",
-    clientID: "0001",
-  },
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-  {
-    id: "2",
-    name: "Client 2",
-    clientID: "0002",
-  },
-];
+const ClientData = () => {
+  const [clientD, setclientD] = useState([{}]);
+  const [Loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://x6fxeu21qb.execute-api.ap-south-1.amazonaws.com/test/allclients"
+        );
+
+        setclientD(response.data);
+        setLoading(false);
+        console.log(clientD);
+      } catch (err) {
+        console.error("ERROR IN client");
+      }
+    };
+    getData();
+  }, [clientD]);
+};
+
+export default ClientData;

@@ -17,10 +17,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="assetList">
               <Route index element={<AssetList />} />
-              <Route
-                path=":assetSerialNumber/:assetName"
-                element={<Single />}
-              />
+              <Route path=":AssetID" element={<Single />} />
               {/* this is where we route for page */}
               <Route path="new" element={<New title="Add New User" />} />
             </Route>
@@ -28,11 +25,6 @@ function App() {
               <Route index element={<AssetList />} />
               <Route path=":productId" element={<Single />} />
               <Route path="new" element={<New title="Add New Product" />} />
-            </Route>
-
-            <Route path="LandingPage">
-              <Route index element={<LandingPage />} />
-              <Route path="home" element={<Home />} />
             </Route>
           </Route>
         </Routes>

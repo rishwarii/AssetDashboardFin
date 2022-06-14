@@ -30,7 +30,7 @@ const Single = () => {
   //   googleMapsApiKey: process.env.GMAPS_APP_API_KEY,
   // });
 
-  const { assetSerialNumber, assetName } = useParams();
+  const { AssetID } = useParams();
 
   //map prt
 
@@ -46,11 +46,12 @@ const Single = () => {
     async function getSingleAsset() {
       try {
         setLoading(true);
-        const SingleAsset = await axios.get(
-          `https://4n53lh55nc.execute-api.ap-south-1.amazonaws.com/prod/asset?assetSerialNumber=${assetSerialNumber}&assetName=${assetName}`
+        const response = await axios.get(
+          `https://x6fxeu21qb.execute-api.ap-south-1.amazonaws.com/test/clientasset?AssetID=${AssetID}`
         );
-        setSingleAsset(SingleAsset.data);
-        setdeviceId(SingleAsset.data.deviceSerialNumber);
+        setSingleAsset(response.data[0]);
+        // console.log(SingleAsset.AssetID);
+        setdeviceId(SingleAsset.DeviceSerialNumber);
       } catch (error) {
         console.log("ERROR");
       }
@@ -62,11 +63,11 @@ const Single = () => {
 
   // console.log(deviceId);
 
-  const latitudeStart = parseFloat(SingleAsset.startLocationLatitude, 10);
-  const longitudeStart = parseFloat(SingleAsset.startLocationLongitude, 10);
+  const latitudeStart = parseFloat(SingleAsset.StartLatitude, 10);
+  const longitudeStart = parseFloat(SingleAsset.StartLongitude, 10);
 
-  const latitudeEnd = parseFloat(SingleAsset.endLocationLatitude, 10);
-  const longitudeEnd = parseFloat(SingleAsset.endLocationLongitude, 10);
+  const latitudeEnd = parseFloat(SingleAsset.EndLatitude, 10);
+  const longitudeEnd = parseFloat(SingleAsset.EndLongitude, 10);
 
   const positionStart = {
     lat: latitudeStart,
@@ -74,12 +75,12 @@ const Single = () => {
   };
 
   const positionEnd = {
-    lat: latitudeEnd - 34,
-    lng: longitudeEnd - 43,
+    lat: latitudeEnd,
+    lng: longitudeEnd,
   };
 
   //API call for location history info
-
+  // console.log(deviceId);
   const [addBluePath, setaddBluePath] = useState([]);
   const [LoadingBluePath, setLoadingBluePath] = useState(false);
   const componentMounted = useRef(true); // (3) component is mounted
@@ -95,7 +96,6 @@ const Single = () => {
         setaddBluePath(BluePath.data.path);
         //data.path is necessary
         setLoadingBluePath(false);
-        // console.log(BluePath.data.path[0].Latitude);
       } catch (error) {
         console.log("ERROR 2");
       }
@@ -135,10 +135,10 @@ const Single = () => {
             <h1 className="title">Information</h1>
             <div className="item">
               <div className="details">
-                <h1 className="itemTitle">{SingleAsset.assetName}</h1>
+                <h1 className="itemTitle">{SingleAsset.AssetName}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Asset Type:</span>
-                  <span className="itemValue">{SingleAsset.assetType}</span>
+                  <span className="itemValue">{SingleAsset.AssetType}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Expected Delivery :</span>
@@ -168,42 +168,42 @@ const Single = () => {
 
           {/* //TODO: extract to component */}
           <h1 className="title">Location History</h1>
-          {/* {!deviceId ? (
-            <div className="loader">
-              <Box sx={{ display: "flex" }}>
-                Loading Map ...
-                <CircularProgress color="secondary" />
-              </Box>
-            </div>
-          ) : ( */}
           <div className="map">
-            <LoadScript googleMapsApiKey="AIzaSyCqnsYyCrtslXT09ZGHvzQPu6f2biBEFR4">
-              <GoogleMap
-                id="marker-example"
-                mapContainerStyle={mapContainerStyle}
-                zoom={15}
-                center={center}
-              >
-                {addBluePath.map((marker, i) => (
-                  <Marker
-                    key={i}
-                    position={{
-                      lat: parseFloat(marker.Latitude),
-                      lng: parseFloat(marker.Longitude),
-                    }}
-                    icon={{
-                      path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-                      fillColor: "blue",
-                      fillOpacity: 0.6,
-                      strokeWeight: 0.5,
-                      rotation: 0,
-                      scale: 2,
-                    }}
-                    title={`Crossed On: ${marker.TimeDate}`}
-                  ></Marker>
-                ))}
-              </GoogleMap>
-            </LoadScript>
+            {LoadingBluePath ? (
+              <div className="loader">
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress color="secondary" />
+                </Box>
+              </div>
+            ) : (
+              <LoadScript googleMapsApiKey="AIzaSyCqnsYyCrtslXT09ZGHvzQPu6f2biBEFR4">
+                <GoogleMap
+                  id="marker-example"
+                  mapContainerStyle={mapContainerStyle}
+                  zoom={15}
+                  center={center}
+                >
+                  {addBluePath.map((marker, i) => (
+                    <Marker
+                      key={i}
+                      position={{
+                        lat: parseFloat(marker.Latitude),
+                        lng: parseFloat(marker.Longitude),
+                      }}
+                      icon={{
+                        path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                        fillColor: "blue",
+                        fillOpacity: 0.6,
+                        strokeWeight: 0.5,
+                        rotation: 0,
+                        scale: 2,
+                      }}
+                      title={`Crossed On: ${marker.TimeDate}`}
+                    ></Marker>
+                  ))}
+                </GoogleMap>
+              </LoadScript>
+            )}
           </div>
         </div>
         {/* THIS IS :IVE TRACKIGGG */}

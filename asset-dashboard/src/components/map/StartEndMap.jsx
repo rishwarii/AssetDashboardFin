@@ -25,7 +25,7 @@ const mapContainerRight = {
 };
 
 const StartEndMap = (props, positionStart, positionEnd) => {
-  console.log(props.positionStart.lng);
+  // console.log(props.positionStart.lng);
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyCqnsYyCrtslXT09ZGHvzQPu6f2biBEFR4">

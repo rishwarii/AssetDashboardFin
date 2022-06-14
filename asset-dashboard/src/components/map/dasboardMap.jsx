@@ -32,7 +32,7 @@ const MapsComponentDash = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          " https://ehkwpzkqme.execute-api.ap-south-1.amazonaws.com/prod/allassets"
+          "https://ehkwpzkqme.execute-api.ap-south-1.amazonaws.com/prod/allassets "
         );
 
         const AllAsset = await response.data;

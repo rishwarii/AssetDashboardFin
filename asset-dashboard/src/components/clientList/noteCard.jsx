@@ -3,31 +3,24 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { Button, CardActionArea, CardActions, Link } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { CardHeader } from "@material-ui/core";
 
 const NoteCard = ({ note }) => {
   return (
-    <Card
-      sx={{
-        bgcolor: "#00bdb8",
-      }}
-    >
+    <Card sx={{ bgColor: "#375f5f" }}>
       <CardActionArea>
+        <CardHeader title="Client's Details" />
         <CardContent>
-          <Typography color="white" gutterBottom variant="h5" component="div">
-            Name of Client :{" "}
+          <Typography color="inherit" gutterBottom variant="h6" component="div">
+            Client Name : <span>{note.ClientName}</span>
           </Typography>
-          <Typography color="white" gutterBottom variant="h5" component="div">
-            {note.name}
-          </Typography>
-          <Typography variant="body2" color="white">
-            Client ID :
-          </Typography>
-          <Typography variant="body2" color="white">
-            {note.clientID}
+          <Typography variant="body2">
+            Client ID : <span>{note.ClientID}</span>
           </Typography>
         </CardContent>
+        <Link></Link>
       </CardActionArea>
     </Card>
   );

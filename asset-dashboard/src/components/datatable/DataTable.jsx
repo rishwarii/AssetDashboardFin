@@ -13,24 +13,25 @@ const DataTable = () => {
   const [isLoading, setisLoading] = useState(false);
 
   const columns = [
-    { field: "assetSerialNumber", headerName: "Serial Number", width: 200 },
-    { field: "assetName", headerName: "Asset Name", width: 200 },
-    { field: "assetType", headerName: "Asset Type", width: 200 },
+    { field: "AssetID", headerName: "AssetID ", width: 100 },
+    { field: "ClientID", headerName: "ClientID", width: 100 },
+    { field: "AssetName", headerName: "Asset Name", width: 100 },
     {
-      field: "expectedDeliveryDateTime",
-      headerName: "Expected Delivery Time",
-      width: 250,
+      field: "AssetSerialNumber",
+      headerName: "Asset Serial Number",
+      width: 100,
     },
+    { field: "AssetType", headerName: "Asset Type", width: 100 },
   ];
 
   useEffect(() => {
     async function getAllAssets() {
       setisLoading(true);
       const Assets = await axios.get(
-        "https://4n53lh55nc.execute-api.ap-south-1.amazonaws.com/prod/assets"
+        `https://x6fxeu21qb.execute-api.ap-south-1.amazonaws.com/test/clientassets?ClientID=${1}`
       );
       // console.log(Assets.data.assets);
-      setAssets(Assets.data.assets);
+      setAssets(Assets.data);
       setisLoading(false);
     }
     getAllAssets();
@@ -61,7 +62,7 @@ const DataTable = () => {
           <div className="cellAction">
             <Link
               // How to access every single member from this list  ?
-              to={`/assetList/${params.row.assetSerialNumber}/${params.row.assetName}`}
+              to={`/assetList/${params.row.AssetID}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
@@ -95,7 +96,7 @@ const DataTable = () => {
         </Link>
       </div>
       <DataGrid
-        getRowId={(row) => row.assetName}
+        getRowId={(row) => row.AssetID}
         className="datagrid"
         components={{
           LoadingOverlay: LinearProgress,

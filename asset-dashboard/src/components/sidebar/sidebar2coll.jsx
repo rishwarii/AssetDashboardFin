@@ -73,7 +73,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const drawer = (
   <List>
     <ListItem disablePadding>
-      <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+      <Link to="/home" style={{ color: "black", textDecoration: "none" }}>
         <ListItemButton>
           <ListItemIcon>
             <DashboardIcon />
